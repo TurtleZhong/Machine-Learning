@@ -2,4 +2,6 @@
 codes of Machine Learning
 
 #this codes is just for the book: The practice of machine learning Author:Peter Harrington
-![ml.jpg](/home/m/Desktop/ml.jpg)
+
+
+![](http://img12.360buyimg.com/popWaterMark/g12/M00/09/02/rBEQYFGcmTgIAAAAAASnqnBOrM0AABxaADS3HMABKfC152.jpg)
