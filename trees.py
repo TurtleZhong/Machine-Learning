@@ -4,14 +4,19 @@
 # Filename: test1.py
 
 from math import log
-
+import operator
 ##This is the dataSet and just for test
-mydataSet = [[1, 1, 'yes'],
-           [1, 1, 'yes'],
-           [1, 0, 'no'],
-           [0, 1, 'no'],
-           [0, 1, 'no']]
-print 'The length of dataSet is %s.' %(len(mydataSet))
+def createDataSet():
+    mydataSet = [[1, 1, 1, 'yes'],
+                 [1, 1, 0, 'maybe'],
+                 [1, 0, 1, 'no'],
+                 [0, 1, 1, 'no'],
+                 [0, 1, 1, 'no']]
+    #print 'The length of dataSet is %s.' % (len(mydataSet))
+    labels = ['no surfacing', 'flippers', 'others']
+    return mydataSet, labels
+
+
 
 def calcShannonEnt(dataSet):
     numEntries = len(dataSet)
@@ -51,7 +56,7 @@ def chooseBestFeatureToSplit(dataSet):
     bestInfoGain = 0.0; bestFeature = -1
     for i in range(numFeature):
         featList = [example[i] for example in dataSet]
-        print featList
+        #print featList
         uniqueVals = set(featList)
         newEntropy = 0.0
         for value in uniqueVals:
@@ -59,14 +64,44 @@ def chooseBestFeatureToSplit(dataSet):
             prob = len(subDataSet) / float(len(dataSet))
             newEntropy += prob * calcShannonEnt(subDataSet)
         infoGain = baseEntropy - newEntropy
-        print infoGain
+        #print infoGain
         if infoGain > bestInfoGain :
             bestInfoGain = infoGain
             bestFeature = i
     return bestFeature
 
+def majorityCnt(classList):
+    classCount = {}
+    for vote in classCount:
+        if vote not in classCount.keys():
+            classCount[vote] = 0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1),reverse=True)
+    return sortedClassCount[0][0]
+
+def creatTree(dataSet, labels):
+    classList = [example[-1] for example in dataSet]
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+    bestFeat = chooseBestFeatureToSplit(dataSet)
+    bestFeatLabel = labels[bestFeat]
+    myTree = {bestFeatLabel:{}}
+    del(labels[bestFeat])
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueValues = set(featValues)
+    for value in uniqueValues:
+        subLabels = labels[:]
+        myTree[bestFeatLabel][value] = creatTree(splitDataSet(dataSet, bestFeat, value), subLabels)
+
+    print myTree
+    return myTree
+
 
 #calcShannonEnt(mydataSet)
 #splitDataSet(mydataSet, 1, 0)
+mydataSet, labels = createDataSet()
 chooseBestFeatureToSplit(mydataSet)
+creatTree(mydataSet,labels)
 
