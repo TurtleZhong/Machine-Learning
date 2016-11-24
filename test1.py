@@ -21,3 +21,4 @@ test.func(50)
 from test import func2
 
 func2()
+

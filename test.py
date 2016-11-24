@@ -92,3 +92,4 @@ month_name = months[month_number - 1]
 day_name = day + endings[day_number - 1]
 
 print month_name + ' ' + day_name + ', ' + year
+
