@@ -64,3 +64,10 @@ bob = Worker('bob smith', 5000)
 
 print bob.lastName()
 print bob.giveRaise(.1)
+
+str1 = "knight's"
+str2 = 'knight"s'
+print str1, str2
+
+path = "c:\\new\\text.dat"
+print path
