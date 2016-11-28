@@ -1,6 +1,7 @@
 #! /usr/bin/python
 # Filename: test3.py
 
+import dlib
 M = [[1, 2, 3],
      [4, 5, 6],
      [7, 8, 9]]
